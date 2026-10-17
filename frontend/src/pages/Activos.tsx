@@ -1,48 +1,47 @@
-import { Plus, Search } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { Plus, Search, Pencil, Trash2, Eye } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
-
-import { obtenerActivos, crearActivo } from '../services/api'
-type Activo = {
-  id: number
-  codigo: string
-  nombre: string
-  tipo: string
-  estado: string
-  horometro: number
-  kilometraje: number
-}
+import {
+  obtenerActivos,
+  crearActivo,
+  actualizarActivo,
+  eliminarActivo,
+} from "../services/api";
+import type { Activo } from "../services/api";
 
 function Activos() {
-  const [activos, setActivos] = useState<Activo[]>([])
-  const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState('')
-      
+  const [activos, setActivos] = useState<Activo[]>([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
-  const [mostrarFormulario, setMostrarFormulario] = useState(false)
-  const [busqueda, setBusqueda] = useState('')
-  const [filtroEstado, setFiltroEstado] = useState('Todos')
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
+  const [filtroEstado, setFiltroEstado] = useState("Todos");
 
-  const [codigo, setCodigo] = useState('')
-  const [nombre, setNombre] = useState('')
-  const [tipo, setTipo] = useState('')
-  const [estado, setEstado] = useState('Operativo')
-  const [horometro, setHorometro] = useState(0)
-  const [kilometraje, setKilometraje] = useState(0)
- // Traer activos desde FastAPI
+  const [codigo, setCodigo] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [estado, setEstado] = useState("Operativo");
+  const [horometro, setHorometro] = useState(0);
+  const [kilometraje, setKilometraje] = useState(0);
+
+  const [activoEditando, setActivoEditando] = useState<number | null>(null);
+
+  // Traer activos desde FastAPI
   useEffect(() => {
     obtenerActivos()
       .then((data) => {
-        setActivos(data)
-        setError('')
+        setActivos(data);
+        setError("");
       })
       .catch(() => {
-        setError('No se pudieron cargar los activos.')
+        setError("No se pudieron cargar los activos.");
       })
       .finally(() => {
-        setCargando(false)
-      })
-  }, [])
+        setCargando(false);
+      });
+  }, []);
 
   // Filtrar activos
   const activosFiltrados = useMemo(() => {
@@ -50,56 +49,102 @@ function Activos() {
       const coincideBusqueda =
         activo.codigo.toLowerCase().includes(busqueda.toLowerCase()) ||
         activo.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-        activo.tipo.toLowerCase().includes(busqueda.toLowerCase())
+        activo.tipo.toLowerCase().includes(busqueda.toLowerCase());
 
       const coincideEstado =
-        filtroEstado === 'Todos' || activo.estado === filtroEstado
+        filtroEstado === "Todos" || activo.estado === filtroEstado;
 
-      return coincideBusqueda && coincideEstado
-    })
-  }, [activos, busqueda, filtroEstado])
+      return coincideBusqueda && coincideEstado;
+    });
+  }, [activos, busqueda, filtroEstado]);
 
+  // Cargar activo en formulario para editar
+  const editarActivo = (activo: Activo) => {
+    setActivoEditando(activo.id);
 
+    setCodigo(activo.codigo);
+    setNombre(activo.nombre);
+    setTipo(activo.tipo);
+    setEstado(activo.estado);
+    setHorometro(activo.horometro);
+    setKilometraje(activo.kilometraje);
 
-   // Crear activo en FastAPI/PostgreSQL
-    const agregarActivo = async (e: React.FormEvent) => {
-  e.preventDefault()
+    setMostrarFormulario(true);
+  };
 
-  try {
-    const nuevoActivo = await crearActivo({
-      codigo,
-      nombre,
-      tipo,
-      estado,
-      horometro,
-      kilometraje,
-    })
+  // Crear o actualizar activo
+  const guardarActivo = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    setActivos([...activos, nuevoActivo])
+    try {
+      const datosActivo = {
+        codigo,
+        nombre,
+        tipo,
+        estado,
+        horometro,
+        kilometraje,
+      };
 
-    setCodigo('')
-    setNombre('')
-    setTipo('')
-    setEstado('Operativo')
-    setHorometro(0)
-    setKilometraje(0)
+      if (activoEditando !== null) {
+        const actualizado = await actualizarActivo(activoEditando, datosActivo);
 
-    setMostrarFormulario(false)
-    setError('')
-  } catch (error) {
-    if (error instanceof Error) {
-      setError(error.message)
-    } else {
-      setError('Ocurrió un error al crear el activo.')
+        setActivos(
+          activos.map((activo) =>
+            activo.id === activoEditando ? actualizado : activo,
+          ),
+        );
+      } else {
+        const nuevoActivo = await crearActivo(datosActivo);
+
+        setActivos([...activos, nuevoActivo]);
+      }
+
+      setCodigo("");
+      setNombre("");
+      setTipo("");
+      setEstado("Operativo");
+      setHorometro(0);
+      setKilometraje(0);
+
+      setActivoEditando(null);
+      setMostrarFormulario(false);
+      setError("");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Ocurrió un error al guardar el activo.");
+      }
     }
-  }
-}
+  };
+
+  const borrarActivo = async (id: number) => {
+    const confirmar = window.confirm(
+      "¿Seguro que deseas eliminar este activo?",
+    );
+
+    if (!confirmar) return;
+
+    try {
+      await eliminarActivo(id);
+
+      setActivos(activos.filter((activo) => activo.id !== id));
+
+      setError("");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
+    }
+  };
 
   const claseEstado = (estado: string) => {
-    if (estado === 'Operativo') return 'status status-operativo'
-    if (estado === 'Mantención') return 'status status-mantencion'
-    return 'status status-fuera'
-  }
+    if (estado === "Operativo") return "status status-operativo";
+    if (estado === "Mantención") return "status status-mantencion";
+
+    return "status status-fuera";
+  };
 
   return (
     <div>
@@ -117,14 +162,10 @@ function Activos() {
           Nuevo activo
         </button>
       </div>
-      
-         {error && (
-  <div className="error-message">
-    {error}
-  </div>
-)}
+
+      {error && <div className="error-message">{error}</div>}
       {mostrarFormulario && (
-        <form className="asset-form" onSubmit={agregarActivo}>
+        <form className="asset-form" onSubmit={guardarActivo}>
           <div className="form-group">
             <label>Código</label>
             <input
@@ -160,10 +201,7 @@ function Activos() {
 
           <div className="form-group">
             <label>Estado</label>
-            <select
-              value={estado}
-              onChange={(e) => setEstado(e.target.value)}
-            >
+            <select value={estado} onChange={(e) => setEstado(e.target.value)}>
               <option>Operativo</option>
               <option>Mantención</option>
               <option>Fuera de servicio</option>
@@ -200,7 +238,7 @@ function Activos() {
             </button>
 
             <button type="submit" className="primary-button">
-              Guardar activo
+              {activoEditando !== null ? "Guardar cambios" : "Guardar activo"}
             </button>
           </div>
         </form>
@@ -229,9 +267,7 @@ function Activos() {
         </select>
       </div>
 
-      {cargando && (
-  <p>Cargando activos...</p>
-)}
+      {cargando && <p>Cargando activos...</p>}
 
       <div className="table-container">
         <table>
@@ -243,6 +279,7 @@ function Activos() {
               <th>Estado</th>
               <th>Horómetro</th>
               <th>Kilometraje</th>
+              <th>Acciones</th>
             </tr>
           </thead>
 
@@ -252,25 +289,59 @@ function Activos() {
                 <td>
                   <strong>{activo.codigo}</strong>
                 </td>
+
                 <td>{activo.nombre}</td>
+
                 <td>{activo.tipo}</td>
+
                 <td>
                   <span className={claseEstado(activo.estado)}>
                     {activo.estado}
                   </span>
                 </td>
+
                 <td>{activo.horometro.toLocaleString()} h</td>
+
                 <td>
                   {activo.kilometraje > 0
                     ? `${activo.kilometraje.toLocaleString()} km`
-                    : 'No aplica'}
+                    : "No aplica"}
+                </td>
+
+                <td>
+                  <div className="table-actions">
+                    <Link
+                      to={`/activos/${activo.id}`}
+                      className="icon-button"
+                      title="Ver detalle"
+                    >
+                      <Eye size={17} />
+                    </Link>
+
+                    
+                    <button
+                      className="icon-button"
+                      title="Editar"
+                      onClick={() => editarActivo(activo)}
+                    >
+                      <Pencil size={17} />
+                    </button>
+
+                    <button
+                      className="icon-button danger"
+                      title="Eliminar"
+                      onClick={() => borrarActivo(activo.id)}
+                    >
+                      <Trash2 size={17} />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
 
             {activosFiltrados.length === 0 && (
               <tr>
-                <td colSpan={6} className="empty-state">
+                <td colSpan={7} className="empty-state">
                   No se encontraron activos.
                 </td>
               </tr>
@@ -279,7 +350,7 @@ function Activos() {
         </table>
       </div>
     </div>
-  )
+  );
 }
 
-export default Activos
+export default Activos;

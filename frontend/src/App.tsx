@@ -1,14 +1,16 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
-import Sidebar from './components/Sidebar'
-import Topbar from './components/Topbar'
+import Sidebar from "./components/Sidebar";
+import Topbar from "./components/Topbar";
 
-import Dashboard from './pages/Dashboard'
-import Activos from './pages/Activos'
-import Mantenciones from './pages/Mantenciones'
-import Inventario from './pages/Inventario'
-import Alertas from './pages/Alertas'
+import Dashboard from "./pages/Dashboard";
+import Activos from "./pages/Activos";
+import Mantenciones from "./pages/Mantenciones";
+import Inventario from "./pages/Inventario";
+import Alertas from "./pages/Alertas";
+
+import ActivoDetalle from "./pages/ActivoDetalle";
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/activos" element={<Activos />} />
+              <Route path="/activos/:id" element={<ActivoDetalle />} />
               <Route path="/mantenciones" element={<Mantenciones />} />
               <Route path="/inventario" element={<Inventario />} />
               <Route path="/alertas" element={<Alertas />} />
@@ -31,7 +34,7 @@ function App() {
         </div>
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

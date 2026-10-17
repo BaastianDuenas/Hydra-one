@@ -1,5 +1,5 @@
 from sqlalchemy import Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.connection import Base
 
@@ -45,3 +45,9 @@ class Activo(Base):
         default=0,
         nullable=False
     )
+
+    mantenciones = relationship(
+    "Mantencion",
+    back_populates="activo",
+    cascade="all, delete-orphan"
+)
