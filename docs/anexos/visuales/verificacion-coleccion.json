@@ -1,0 +1,65 @@
+{
+  "images": [
+    {
+      "file": "01-arquitectura.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1385005
+    },
+    {
+      "file": "02-datos.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1413942
+    },
+    {
+      "file": "03-proceso.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1308470
+    },
+    {
+      "file": "04-arquitectura-detallada.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1606960
+    },
+    {
+      "file": "05-despliegue-neon.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1440808
+    },
+    {
+      "file": "06-datos-detallados.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1657968
+    },
+    {
+      "file": "07-alertas-reglas.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1676755
+    },
+    {
+      "file": "08-cierre-integrado-propuesto.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1655702
+    },
+    {
+      "file": "09-metodologia-scrum.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1613426
+    },
+    {
+      "file": "10-validacion-evidencias.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 1556802
+    }
+  ],
+  "scope": "Existencia y dimensiones PNG; revisión visual semántica realizada; no pruebas funcionales"
+}
