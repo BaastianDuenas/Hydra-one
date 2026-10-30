@@ -1,4 +1,7 @@
-from sqlalchemy import Integer, String
+
+from decimal import Decimal
+
+from sqlalchemy import Integer, String, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.connection import Base
@@ -34,20 +37,20 @@ class Activo(Base):
         nullable=False
     )
 
-    horometro: Mapped[int] = mapped_column(
-        Integer,
+    horometro: Mapped[Decimal] = mapped_column(
+        Numeric(14, 4),
         default=0,
         nullable=False
     )
 
-    kilometraje: Mapped[int] = mapped_column(
-        Integer,
+    kilometraje: Mapped[Decimal] = mapped_column(
+        Numeric(14, 4),
         default=0,
         nullable=False
     )
 
     mantenciones = relationship(
-    "Mantencion",
-    back_populates="activo",
-    cascade="all, delete-orphan"
-)
+        "Mantencion",
+        back_populates="activo",
+        cascade="all, delete-orphan"
+    )

@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from app.models.mantencion import Mantencion
+from app.models.repuesto import Repuesto
 
 from app.database.connection import get_db
 from app.models.activo import Activo
