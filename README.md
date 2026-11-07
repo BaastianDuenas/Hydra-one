@@ -1,12 +1,18 @@
 # Hydra One
 
-Plataforma web para la gestión de maquinaria, mantenciones, inventario y alertas.
+Plataforma web orientada a la gestión de maquinaria, mantenciones, inventario y alertas, desarrollada como parte de un proyecto académico de Ingeniería en Informática.
 
-## Trabajo colaborativo con GitHub
+Descripción
+
+Este repositorio contiene la documentación, informes y evidencias del desarrollo de Hydra One, organizados según las fases del proyecto.
+
+Su propósito es mantener un respaldo personal y ordenado de las entregas académicas, facilitar su consulta y su posterior revisión.
+
+## Trabajo colaborativo
 
 El proyecto utiliza la rama principal `main`, donde se encuentran el código fuente, los informes y las evidencias académicas.
 
-### 1. Clonar el repositorio (solo la primera vez)
+### 1. Clonar el repositorio
 
 ```bash
 git clone URL_DEL_REPOSITORIO
@@ -36,7 +42,7 @@ git commit -m "Descripcion de los cambios"
 git push origin main
 ```
 
-Revisa siempre qué archivos vas a subir con `git status`.
+Revisar siempre antes de subir archivos con `git status`.
 
 ### 4. Comandos útiles
 
@@ -50,14 +56,3 @@ Revisa siempre qué archivos vas a subir con `git status`.
 | `git branch` | Consultar la rama actual |
 | `git remote -v` | Ver la conexión con GitHub |
 | `git log --oneline -5` | Consultar los últimos cinco commits |
-
-### 5. Recomendaciones
-
-- Actualizar el repositorio antes de comenzar a trabajar.
-- No sobrescribir archivos de otros integrantes sin coordinación.
-- Utilizar mensajes de commit descriptivos.
-- No subir contraseñas, tokens ni archivos `.env` con credenciales reales.
-- Si aparece un conflicto de Git, revisarlo antes de continuar.
-- Mantener las evidencias organizadas por fase.
-
-**Flujo habitual:** actualizar → trabajar → revisar → agregar → commit → push.
