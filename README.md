@@ -1,75 +1,41 @@
-Hydra One
-Plataforma web orientada a la gestión de maquinaria, mantenciones, inventario y alertas, desarrollada como parte de un proyecto académico de Ingeniería en Informática.
+# Hydra One — Entregas Documentos
 
-<<<<<<< HEAD
-Descripción
+Repositorio destinado a la organización y almacenamiento de los informes, documentos y evidencias académicas del proyecto, una plataforma web para la gestión de maquinaria, mantenciones, inventario y alertas.
 
-Este repositorio contiene la documentación, informes y evidencias del desarrollo de Hydra One, organizados según las fases del proyecto.
-=======
-Plataforma web orientada a la gestión de maquinaria, mantenciones, inventario y alertas, desarrollada como parte de un proyecto académico de Ingeniería en Informática.
-
-Descripción
-
-Este repositorio contiene la documentación, informes y evidencias del desarrollo de Hydra One, organizados según las fases del proyecto.
-
-Su propósito es mantener un respaldo personal y ordenado de las entregas académicas, facilitar su consulta y su posterior revisión.
-
-## Trabajo colaborativo
->>>>>>> origin/main
-
-Su propósito es mantener un respaldo personal y ordenado de las entregas académicas, facilitar su consulta y su posterior revisión.
-
-<<<<<<< HEAD
-Trabajo colaborativo
-El proyecto utiliza la rama principal main, donde se encuentran el código fuente, los informes y las evidencias académicas.
-=======
 ### 1. Clonar el repositorio
->>>>>>> origin/main
 
-1. Clonar el repositorio
-git clone URL_DEL_REPOSITORIO
-cd Hydra-One
-2. Actualizar el proyecto
-Antes de comenzar a trabajar:
+```bash
+git clone https://github.com/BaastianDuenas/Hydra-one.git
+cd Hydra-one
+```
 
-git status
-git switch main
-git pull --ff-only origin main
-Si tienes cambios locales pendientes, guárdalos antes de actualizar.
+### 2. Actualizar los documentos
 
-3. Guardar y subir modificaciones
-Después de trabajar:
+Antes de realizar modificaciones:
 
+```bash
+git pull origin main
+```
+
+### 3. Guardar y subir cambios
+
+Una vez agregados o modificados los documentos:
+
+```bash
 git status
 git add .
-git commit -m "Descripcion de los cambios"
+git commit -m "Actualizar documentos Fase 2"
 git push origin main
-Revisar siempre antes de subir archivos con git status.
+```
 
-<<<<<<< HEAD
-4. Comandos útiles
-Comando	Función
-git status	Revisar modificaciones pendientes
-git pull	Descargar e integrar cambios
-git add .	Preparar modificaciones
-git commit -m "Mensaje"	Registrar cambios localmente
-git push origin main	Publicar cambios en GitHub
-git branch	Consultar la rama actual
-git remote -v	Ver la conexión con GitHub
-git log --oneline -5	Consultar los últimos cinco commits
-=======
-Revisar siempre antes de subir archivos con `git status`.
+> **Nota:** Antes de subir cambios, revisar los archivos modificados con `git status`. Si otra persona actualizó el repositorio, integrar sus cambios antes de continuar.
 
-### 4. Comandos útiles
+## 📌 Comandos útiles
 
-| Comando | Función |
+| Comando | Descripción |
 |---|---|
-| `git status` | Revisar modificaciones pendientes |
-| `git pull` | Descargar e integrar cambios |
-| `git add .` | Preparar modificaciones |
-| `git commit -m "Mensaje"` | Registrar cambios localmente |
-| `git push origin main` | Publicar cambios en GitHub |
-| `git branch` | Consultar la rama actual |
-| `git remote -v` | Ver la conexión con GitHub |
-| `git log --oneline -5` | Consultar los últimos cinco commits |
->>>>>>> origin/main
+| `git status` | Consultar archivos modificados. |
+| `git pull origin main` | Descargar e integrar actualizaciones. |
+| `git add .` | Preparar los cambios. |
+| `git commit -m "Mensaje"` | Guardar los cambios localmente. |
+| `git push origin main` | Subir los cambios a GitHub. |
