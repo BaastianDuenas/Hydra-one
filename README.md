@@ -29,13 +29,3 @@ git push origin main
 ```
 
 > **Nota:** Antes de subir cambios, revisar los archivos modificados con `git status`. Si otra persona actualizó el repositorio, integrar sus cambios antes de continuar.
-
-## 📌 Comandos útiles
-
-| Comando | Descripción |
-|---|---|
-| `git status` | Consultar archivos modificados. |
-| `git pull origin main` | Descargar e integrar actualizaciones. |
-| `git add .` | Preparar los cambios. |
-| `git commit -m "Mensaje"` | Guardar los cambios localmente. |
-| `git push origin main` | Subir los cambios a GitHub. |
